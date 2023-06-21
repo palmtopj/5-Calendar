@@ -1,8 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
-
   $(function () {
     $(".saveBtn").on("click", function () {
       var timeBlock = $(this).closest(".time-block").attr("id");
@@ -10,7 +5,7 @@
       localStorage.setItem(timeBlock, userText);
     });
   
-    // Add code to apply the past, present, or future class to each time
+    // Applied the past, present, or future class to each time
 
   var currentHour = dayjs().format('H');
   $(".time-block").each(function () {
@@ -24,16 +19,24 @@
     }
   });
 
-  // Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. Use the id attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+  // Get any user input that was saved in localStorage and set
+  // the values of the corresponding textarea elements. 
+
+  $(".time-block").each(function () {
+    var timeBlockId = $(this).attr("id");
+    var userText = localStorage.getItem(timeBlockId);
+    $(this).find("textarea").val(userText);
+  });
+
+  // Display the date
   var currentDate = dayjs().format('MMMM D, YYYY');
   $('#currentDay').text(currentDate);
+
+  // Display the time
   var currentTime = dayjs().format('h:mm A');
-  $('#currentDay').text(currentTime);
+  $('#currentDay').append(' / '+currentTime);
   
 });
-// Display the time
+
 
 
